@@ -10,7 +10,9 @@ Pull this repository and run "build.sh"
 # ENV
 ```
 TZ - timezone
-FD_Password - authentication password for Director (Bacula Server), You can set it or will be generated automaticly, after that You can check bacula-fd.conf or docker inspect
+FD_Password - authentication password for Director (Bacula Server), 
+              You can set it or will be generated automaticly, 
+              after that You can check bacula-fd.conf or docker inspect
 FD_Name - optional name	of backuped host, could be omitted because Bacula Server is using it's own names directives for clients.
 DIR_Name - Bacula Director Name, needed for authenticating Director on Clients
 FD_Port - (optionally) by default 9102
