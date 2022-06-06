@@ -15,7 +15,7 @@ RUN echo "path-exclude /usr/share/doc/*" > /etc/dpkg/dpkg.cfg.d/01_nodoc && \
     echo "path-exclude /usr/share/lintian/*" >> /etc/dpkg/dpkg.cfg.d/01_nodoc && \
     echo "path-exclude /usr/share/linda/*" >> /etc/dpkg/dpkg.cfg.d/01_nodoc&& \
     apt update && apt install -y gnupg2 curl && \
-    echo "deb http://www.bacula.org/packages/614321e9d6b75/debs/11.0.5/buster/amd64 buster main" > /etc/apt/sources.list.d/bacula.list && \
+    echo "deb http://www.bacula.org/packages/614321e9d6b75/debs/11.0.6/buster/amd64 buster main" > /etc/apt/sources.list.d/bacula.list && \
     cat /root/Bacula.asc | apt-key add - && \
     apt update && apt -y upgrade && apt install -y --no-install-recommends bacula-client && \
     apt --purge remove -y curl gnupg2 && \
