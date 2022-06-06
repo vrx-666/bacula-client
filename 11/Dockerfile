@@ -6,6 +6,7 @@ LABEL maintainer="developer@s.vrx.pl"
 LABEL version="1.0"
 LABEL description="Bacula Client 11"
 
+COPY Bacula.asc /root/Bacula.asc
 RUN echo "path-exclude /usr/share/doc/*" > /etc/dpkg/dpkg.cfg.d/01_nodoc && \
     echo "path-include /usr/share/doc/*/copyright" >> /etc/dpkg/dpkg.cfg.d/01_nodoc && \
     echo "path-exclude /usr/share/man/*" >> /etc/dpkg/dpkg.cfg.d/01_nodoc && \
@@ -15,7 +16,7 @@ RUN echo "path-exclude /usr/share/doc/*" > /etc/dpkg/dpkg.cfg.d/01_nodoc && \
     echo "path-exclude /usr/share/linda/*" >> /etc/dpkg/dpkg.cfg.d/01_nodoc&& \
     apt update && apt install -y gnupg2 curl && \
     echo "deb http://www.bacula.org/packages/614321e9d6b75/debs/11.0.5/buster/amd64 buster main" > /etc/apt/sources.list.d/bacula.list && \
-    curl -sL https://www.bacula.org/downloads/Bacula-4096-Distribution-Verification-key.asc | apt-key add - && \
+    cat /root/Bacula.asc | apt-key add - && \
     apt update && apt -y upgrade && apt install -y --no-install-recommends bacula-client && \
     apt --purge remove -y curl gnupg2 && \
     apt autoremove -y && \
