@@ -6,7 +6,7 @@
 : ${FD_Port:="9102"}
 
 if [ -z ${DIR_Name} ];then
-	echo "==> DIR_Host must be set, exiting"
+	echo "==> DIR_Name must be set, exiting"
 	exit 1
 fi
 
@@ -22,17 +22,13 @@ if [ ! -f /opt/bacula/etc/bacula-fd.conf ];then
 	echo "==> Creating File daemon config..."
 	cp -rp /home/bacula/etc/bacula-fd.conf /opt/bacula/etc/bacula-fd.conf
 	cp -rp /home/bacula/working /opt/bacula/
-	chown bacula:bacula /opt/bacula/etc/bacula-fd.conf
-	chmod g+w /opt/bacula/etc/bacula-fd.conf
 fi
-cp -rup /home/bacula/scripts /opt/bacula/
 
 for c in ${CONFIG_VARS[@]}; do
   sed -i "s,@${c}@,$(eval echo \$$c)," /opt/bacula/etc/bacula-fd.conf
 done
 
-chown -R bacula:bacula /opt/bacula/working
-chown bacula:tape /opt/bacula/log
+ln -sf /usr/lib /opt/bacula/plugins
 
 echo "==> Starting..."
 echo "==> .......File Daemon..."

@@ -9,7 +9,9 @@ function bacula_ver {
 function checker_ver {
 	if [ $bversion == 1 ];then
 		ver="11"
+		get_sources
 		build_image
+		rm -rf bacula_src
 	elif [ $bversion == 2 ];then
 		ver="9.6"
 		build_image
@@ -17,6 +19,14 @@ function checker_ver {
 		echo -e "\nYou should type '1' or '2'"
 		bacula_ver
 	fi
+}
+
+function get_sources {
+		mkdir bacula_src
+		curl -s $(curl -s https://www.bacula.org/source-download-center/ | grep download-link | head -1 | sed -e 's/^.*href="//' -e 's/" rel.*$//') -o bacula_src/bacula_src.tgz
+		cd bacula_src && tar -zxvf bacula_src.tgz 
+		mv $(find -maxdepth 1 -type d -name "bacula*") bacula_src
+		cd ..
 }
 
 function build_image {
@@ -32,7 +42,9 @@ elif [ "$#" != "1" ]; then
 elif [ "$#" == "1" ]; then
 	if [ $1 == "11" ]; then
 		ver="11"
+		get_sources
 		build_image
+		rm -rf bacula_src
 	elif [ $1 == "9.6" ]; then
 		ver="9.6"
 		build_image
