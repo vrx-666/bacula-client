@@ -23,7 +23,7 @@ function checker_ver {
 
 function get_sources {
 		mkdir bacula_src
-		curl -s $(curl -s https://www.bacula.org/source-download-center/ | grep download-link | head -1 | sed -e 's/^.*href="//' -e 's/" rel.*$//') -o bacula_src/bacula_src.tgz
+		curl -s $(curl -s https://www.bacula.org/source-download-center/ | grep -B1 -i -E 'Bacula 11[0-9\.]* Source Files.* downloads' | grep download-link | sed -e 's/^.*href="//' -e 's/" rel.*$//') -o bacula_src/bacula_src.tgz
 		cd bacula_src && tar -zxvf bacula_src.tgz 
 		mv $(find -maxdepth 1 -type d -name "bacula*") bacula_src
 		cd ..
